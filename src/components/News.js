@@ -13,26 +13,31 @@ const News = props => {
     });
 
     const [newsItems, setNewsItems] = React.useState([]);
+
+
     React.useEffect(() => {
         let items = [];
-        if(loading === false && data){
+        if (loading === false && data) {
             data.response.newsList.children.nodes.forEach(node => {
                 items.push({
                         id: node.uuid,
                         title: node.title,
                         description: node.description.value,
-                        image: process.env.REACT_APP_JCONTENT_FILES_ENDPOINT+`${node.image.refNode.path}`,
-                        created: node.created.value
+                        image: process.env.REACT_APP_JCONTENT_FILES_ENDPOINT + `${node.image.refNode.path}`,
+                        created: node.created.value,
+                        newsTags: node.tags && node.tags.values,
+                        newsCategories: node.categories && node.categories.values
                     }
                 );
+
             })
             setNewsItems(items);
+
         }
-    }, [loading,data]);
+    }, [loading, data]);
 
-    if (loading) return <img src={`https://via.placeholder.com/1024x768/09f/fff?text=Loading`} alt="loading"/>;
+    if (loading) return <img src={`https://via.placeholder.com/512x256/09f/fff?text=Loading`} alt="loading"/>;
     if (error) return <p>Error ${error}</p>;
-
 
     return (
         <Container>

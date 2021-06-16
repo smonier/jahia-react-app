@@ -14,6 +14,15 @@ export const GET_NEWS = gql`
                         image: property(name: "image") { refNode {path} }
                         description: property(language: $language,name: "desc"){ value }
                         created: property(name: "jcr:created") { value }
+                        tags: property(language: $language, name: "j:tagList") {
+                            values
+                        }
+                        categories: property(language: $language, name: "j:defaultCategory") {
+                            values
+                        }
+                        interests: property(name: "wem:interests") {
+                            values
+                        }
                     }
                 }
             }
